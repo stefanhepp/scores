@@ -39,7 +39,7 @@ LilypondBuilder = Builder(
 def generate(env, **kw):
     """Add rst builders to the construction environment."""
 
-    env['MSCORECOM'] = '$MSCORE -platform offscreen $SOURCE -o $TARGET'
+    env['MSCORECOM'] = 'QT_QPA_PLATFORM=offscreen $MSCORE $SOURCE -o $TARGET'
     env['LILYPONDCOM'] = '$LILYPOND -o $TARGET $SOURCE'
 
     env['BUILDERS']['MScorePDF']  = MScorePDFBuilder
