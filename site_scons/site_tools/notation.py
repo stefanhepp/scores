@@ -16,30 +16,30 @@ from SCons.Script import *
 
 MScorePDFBuilder = Builder(
         action = "MSCORECOM",
-	suffix = '.pdf', src_suffix = [ '.mscx','.mscz','.mxl','.xml','.mid','.midi' ], single_source = 1
+        suffix = '.pdf', src_suffix = [ '.mscx','.mscz','.mxl','.xml','.mid','.midi' ], single_source = 1
 )
 MScoreMIDIBuilder = Builder(
         action = "MSCORECOM",
-	suffix = '.midi', src_suffix = [ '.mscx','.mscz','.mxl','.xml' ], single_source = 1
+        suffix = '.midi', src_suffix = [ '.mscx','.mscz','.mxl','.xml' ], single_source = 1
 )
 MScoreLyBuilder = Builder(
         action = "MSCORECOM",
-	suffix = '.ly', src_suffix = [ '.mscx','.mscz','.mxl','.xml','.mid','.midi' ], single_source = 1
+        suffix = '.ly', src_suffix = [ '.mscx','.mscz','.mxl','.xml','.mid','.midi' ], single_source = 1
 )
 MScoreOggBuilder = Builder(
         action = "MSCORECOM",
-	suffix = '.pdf', src_suffix = [ '.mscx','.mscz','.mxl','.xml','.mid','.midi' ], single_source = 1
+        suffix = '.pdf', src_suffix = [ '.mscx','.mscz','.mxl','.xml','.mid','.midi' ], single_source = 1
 )
 
 LilypondBuilder = Builder(
         action = "$LILYPONDCOM",
-	suffix = '.pdf', src_suffix = '.ly', single_source = 1
+        suffix = '.pdf', src_suffix = '.ly', single_source = 1
 )
 
 def generate(env, **kw):
     """Add rst builders to the construction environment."""
 
-    env['MSCORECOM'] = '$MSCORE $SOURCE -o $TARGET'
+    env['MSCORECOM'] = '$MSCORE -platform offscreen $SOURCE -o $TARGET'
     env['LILYPONDCOM'] = '$LILYPOND -o $TARGET $SOURCE'
 
     env['BUILDERS']['MScorePDF']  = MScorePDFBuilder
@@ -54,12 +54,12 @@ def generate(env, **kw):
 
     try:
         bld = env['BUILDERS']['PDF']
-	bld.add_action('.mscx', '$MSCORECOM')
-	bld.add_action('.mscz', '$MSCORECOM')
-	bld.add_action('.mxl',  '$MSCORECOM')
-	bld.add_action('.ly', '$LILYPONDCOM')
+        bld.add_action('.mscx', '$MSCORECOM')
+        bld.add_action('.mscz', '$MSCORECOM')
+        bld.add_action('.mxl',  '$MSCORECOM')
+        bld.add_action('.ly', '$LILYPONDCOM')
     except:
-	pass
+        pass
 
 def exists(env):
     return exists([env.subst('$MSCORE'),env.subst('$LILYPOND')])

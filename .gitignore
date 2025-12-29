@@ -1,4 +1,4 @@
 *.mscz,
 *.mscx,
-.sconsign
+.sconsign*
 *.pyc
